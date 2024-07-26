@@ -98,11 +98,13 @@ function getPossibleUrisFromGithubSource(provided) {
     } else
         throw new Error(`Don't know how to parse ${provided}`);
 
+    console.log('Parsed as', { owner, repo, possibleBranches, possiblePaths });
+
     let possibleUris = [];
 
     for (const path of possiblePaths)
         for (const branch of possibleBranches)
-            possibleBranches.push(`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${branch}`)
+            possibleUris.push(`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}`)
 
     return possibleUris;
 }
