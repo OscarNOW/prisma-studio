@@ -9,6 +9,10 @@ const possibleProviders = [
     'sqlserver',
 ];
 
+const providerAliases = {
+
+};
+
 const fs = require('fs');
 
 main();
@@ -22,15 +26,21 @@ async function main() {
     else {
         schema = fs.readFileSync(`./prisma/schema.prisma`, 'utf8');
 
-        let provider;
+        let provider = process.env.PROVIDER;
 
-        if (process.env.PROVIDER)
-            provider = process.env.PROVIDER;
-        else for (const possibleProvider of possibleProviders)
-            if (process.env.DATABASE_URL.toLowerCase().includes(possibleProvider.toLowerCase())) {
-                provider = possibleProvider;
-                break;
-            }
+        if (!provider)
+            for (const possibleProvider of possibleProviders)
+                if (process.env.DATABASE_URL.toLowerCase().includes(possibleProvider.toLowerCase())) {
+                    provider = possibleProvider;
+                    break;
+                }
+
+        if (!provider)
+            for (const [alias, aliasProvider] of Object.entries(providerAliases))
+                if (process.env.DATABASE_URL.toLowerCase().includes(alias.toLowerCase())) {
+                    provider = aliasProvider;
+                    break;
+                }
 
         if (!provider)
             throw 'No provider specified, please specify one in the variables/env';
