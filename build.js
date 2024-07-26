@@ -51,7 +51,7 @@ async function getFileFromExternalSource(provided) {
         console.log(`Trying to load from ${uri}`);
         try {
             // const response = await fetch(uri);
-            const response = fetch(uri, {
+            const response = await fetch(uri, {
                 "headers": {
                     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
                     "accept-language": "nl-NL,nl;q=0.9,en-US;q=0.8,en;q=0.7",
