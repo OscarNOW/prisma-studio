@@ -61,7 +61,7 @@ async function getSchemaFromGithub(provided) {
     } else if (provided.split('/')[2] === 'tree' || provided.split('/')[2] === 'blob') {
         // owner/repo/blob/branch/path or owner/repo/tree/branch/path
         possibleBranches = [provided.split('/')[3]];
-        possiblePaths = provided.split('/').slice(4);
+        possiblePaths = [provided.split('/').slice(4).join('/')];
 
     } else
         throw new Error(`Don't know how to parse ${provided}`);
