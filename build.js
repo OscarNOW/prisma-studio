@@ -1,11 +1,13 @@
 require('dotenv').config();
 
-// cockroachdb
-// mongodb
-// mysql
-// postgresql
-// sqlite
-// sqlserver
+const possibleProviders = [
+    'cockroachdb',
+    'mongodb',
+    'mysql',
+    'postgresql',
+    'sqlite',
+    'sqlserver',
+];
 
 const fs = require('fs');
 
@@ -14,14 +16,27 @@ async function main() {
     let schema;
     if (process.env.SCHEMA_SOURCE)
         schema = await getFileFromExternalSource(process.env.SCHEMA_SOURCE);
-    else
+    else {
+        let provider;
+
+        if (process.env.PROVIDER)
+            provider = process.env.PROVIDER;
+        else for (const possibleProvider of possibleProviders)
+            if (process.env.DATABASE_URL.toLowerCase().includes(possibleProvider.toLowerCase())) {
+                provider = possibleProvider;
+                break;
+            }
+
         schema = fs.readFileSync(`./prisma/schema.prisma`).toString();
 
-    const provider = process.env.PROVIDER;
-    if (provider)
-        schema = schema.replaceAll('{provider}', provider);
+        if (!provider)
+            throw new Error('No provider specified');
+    }
 
-    fs.writeFileSync(`./prisma/schema.prisma`, schema);
+    const provider = process.env.PROVIDER;
+    if (provider && !process.env.SCHEMA_SOURCE)
+
+        fs.writeFileSync(`./prisma/schema.prisma`, schema);
 }
 
 async function getFileFromExternalSource(provided) {
