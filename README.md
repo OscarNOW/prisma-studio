@@ -15,6 +15,7 @@ Optional, This is the database provider prisma uses. Possible values:
 * postgresql
 * sqlite
 * sqlserver
+
 If unset, the provider will be guessed from the database url.
 
 ### Schema source
