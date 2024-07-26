@@ -10,6 +10,6 @@ require('dotenv').config();
 const fs = require('fs');
 const provider = process.env.PROVIDER;
 
-let schema = fs.readFileSync(`./prisma/schema.prisma`);
+let schema = fs.readFileSync(`./prisma/schema.prisma`).toString();
 schema = schema.replaceAll('{provider}', provider);
 fs.writeFileSync(`./prisma/schema.prisma`, schema);
