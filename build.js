@@ -23,11 +23,15 @@ async function main() {
 }
 
 async function getSchemaFromSource(provided) {
+    console.log(`Loading schema from external source ${provided}`);
+
     let origin = 'https://github.com';
     if (provided.startsWith('http')) {
         origin = new URL(provided).origin;
         provided = provided.slice(origin.length + 1);
     }
+
+    console.log(`Parsed origin as ${origin}`);
 
     if (origin === 'https://github.com')
         return await getSchemaFromGithub(provided);
@@ -36,6 +40,8 @@ async function getSchemaFromSource(provided) {
 }
 
 async function getSchemaFromGithub(provided) {
+    console.log(`Loading schema from github ${provided}`);
+
     let owner = provided.split('/')[0];
     let repo = provided.split('/')[1];
     let possibleBranches = [
@@ -49,17 +55,21 @@ async function getSchemaFromGithub(provided) {
 
     if (provided.split('/').length === 2) {
         // owner/repo
+        console.log('Source is in form owner/repo');
 
     } else if (provided.split('/').length === 3) {
         // owner/repo/branch
+        console.log('Source is in form owner/repo/branch');
         possibleBranches = [provided.split('/')[2]];
 
     } else if (provided.split('/').length === 4 && (provided.split('/')[2] === 'tree' || provided.split('/')[2] === 'blob')) {
         // owner/repo/tree/branch or owner/repo/blob/branch
+        console.log('Source is in form owner/repo/tree/branch or owner/repo/blob/branch');
         possibleBranches = [provided.split('/')[3]];
 
     } else if (provided.split('/')[2] === 'tree' || provided.split('/')[2] === 'blob') {
         // owner/repo/blob/branch/path or owner/repo/tree/branch/path
+        console.log('Source is in form owner/repo/blob/branch/path or owner/repo/tree/branch/path');
         possibleBranches = [provided.split('/')[3]];
         possiblePaths = [provided.split('/').slice(4).join('/')];
 
