@@ -21,7 +21,9 @@ const providerAliases = {
 
 const fs = require('fs');
 
-main();
+main().catch(e => {
+    throw e;
+});
 async function main() {
     if (!process.env.DATABASE_URL)
         throw 'No DATABASE_URL specified, please specify one in the variables/env';
