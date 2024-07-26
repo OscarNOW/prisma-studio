@@ -18,7 +18,9 @@ async function main() {
         schema = fs.readFileSync(`./prisma/schema.prisma`).toString();
 
     const provider = process.env.PROVIDER;
-    schema = schema.replaceAll('{provider}', provider);
+    if (provider)
+        schema = schema.replaceAll('{provider}', provider);
+
     fs.writeFileSync(`./prisma/schema.prisma`, schema);
 }
 
