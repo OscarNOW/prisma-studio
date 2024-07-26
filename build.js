@@ -13,7 +13,7 @@ main();
 async function main() {
     let schema;
     if (process.env.SCHEMA_SOURCE)
-        schema = await getPossibleUrisFromExternalSource(process.env.SCHEMA_SOURCE);
+        schema = await getFileFromExternalSource(process.env.SCHEMA_SOURCE);
     else
         schema = fs.readFileSync(`./prisma/schema.prisma`).toString();
 
@@ -46,15 +46,15 @@ async function getFileFromExternalSource(provided) {
 
 function getPossibleUrisFromExternalSource(provided) {
     let origin = 'https://github.com';
-    if (provided.startsWith('http')) {
+    if (provided.startsWith('http'))
         origin = new URL(provided).origin;
-        provided = provided.slice(origin.length + 1);
-    }
 
     console.log(`Parsed origin as ${origin}`);
 
-    if (origin === 'https://github.com')
+    if (origin === 'https://github.com') {
+        provided = provided.slice(origin.length + 1);
         return getPossibleUrisFromGithubSource(provided);
+    }
 
     console.log('Parsed source as full uri to the file');
 
