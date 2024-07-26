@@ -4,5 +4,8 @@
   "main": "index.js",
   "scripts": {},
   "author": "",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "prisma": "^5.17.0"
+  }
 }

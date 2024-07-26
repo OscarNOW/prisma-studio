@@ -1,0 +1,15 @@
+// © 2024 Daan Schenkel & Oscar Knap
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+    provider     = "postgres"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
+}
