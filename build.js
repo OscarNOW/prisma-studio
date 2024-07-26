@@ -10,7 +10,13 @@ const possibleProviders = [
 ];
 
 const providerAliases = {
-
+    postgres: 'postgresql',
+    cockroach: 'cockroachdb',
+    mongo: 'mongodb',
+    lite: 'sqlite',
+    mssql: 'sqlserver',
+    serversql: 'sqlserver',
+    my: 'mysql',
 };
 
 const fs = require('fs');
