@@ -13,7 +13,7 @@ main();
 async function main() {
     let schema;
     if (process.env.SCHEMA_SOURCE)
-        schema = await getSchemaFromSource(process.env.SCHEMA_SOURCE);
+        schema = await getPossibleUrisFromExternalSource(process.env.SCHEMA_SOURCE);
     else
         schema = fs.readFileSync(`./prisma/schema.prisma`).toString();
 
@@ -22,9 +22,29 @@ async function main() {
     fs.writeFileSync(`./prisma/schema.prisma`, schema);
 }
 
-async function getSchemaFromSource(provided) {
+async function getFileFromExternalSource(provided) {
     console.log(`Loading schema from external source ${provided}`);
 
+    const possibleUris = getPossibleUrisFromExternalSource(provided);
+
+    for (const uri of possibleUris) {
+        console.log(`Trying to load from ${uri}`);
+        try {
+            const response = await fetch(uri);
+            if (!`${response.status}`.startsWith('2')) {
+                console.log(`Status code is ${response.status}`);
+                continue;
+            }
+
+            const file = await response.text();
+            return file;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
+
+function getPossibleUrisFromExternalSource(provided) {
     let origin = 'https://github.com';
     if (provided.startsWith('http')) {
         origin = new URL(provided).origin;
@@ -34,12 +54,14 @@ async function getSchemaFromSource(provided) {
     console.log(`Parsed origin as ${origin}`);
 
     if (origin === 'https://github.com')
-        return await getSchemaFromGithub(provided);
+        return getPossibleUrisFromGithubSource(provided);
 
-    //todo
+    console.log('Parsed source as full uri to the file');
+
+    return [provided];
 }
 
-async function getSchemaFromGithub(provided) {
+function getPossibleUrisFromGithubSource(provided) {
     console.log(`Loading schema from github ${provided}`);
 
     let owner = provided.split('/')[0];
@@ -76,6 +98,11 @@ async function getSchemaFromGithub(provided) {
     } else
         throw new Error(`Don't know how to parse ${provided}`);
 
-    console.log({ owner, repo, possibleBranches, possiblePaths });
-    process.exit();
+    let possibleUris = [];
+
+    for (const path of possiblePaths)
+        for (const branch of possibleBranches)
+            possibleBranches.push(`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${branch}`)
+
+    return possibleUris;
 }
