@@ -35,6 +35,7 @@ async function main() {
         if (!provider)
             throw 'No provider specified, please specify one in the variables/env';
 
+        console.log(`Using provider ${provider}`);
         schema = schema.replaceAll('{provider}', provider);
     }
 
