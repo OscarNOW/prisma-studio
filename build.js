@@ -30,7 +30,7 @@ async function main() {
                 break;
             }
 
-        schema = fs.readFileSync(`./prisma/schema.prisma`).toString();
+        schema = fs.readFileSync(`./prisma/schema.prisma`, 'utf8');
 
         if (!provider)
             throw 'No provider specified, please specify one in the variables/env';
@@ -39,7 +39,7 @@ async function main() {
     const provider = process.env.PROVIDER;
     if (provider && !process.env.SCHEMA_SOURCE)
 
-        fs.writeFileSync(`./prisma/schema.prisma`, schema);
+        fs.writeFileSync(`./prisma/schema.prisma`, schema, 'utf8');
 }
 
 async function getFileFromExternalSource(provided) {
