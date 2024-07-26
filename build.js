@@ -13,6 +13,9 @@ const fs = require('fs');
 
 main();
 async function main() {
+    if (!process.env.DATABASE_URL)
+        throw new Error('No DATABASE_URL specified, please specify one in the variables/env');
+
     let schema;
     if (process.env.SCHEMA_SOURCE)
         schema = await getFileFromExternalSource(process.env.SCHEMA_SOURCE);
@@ -30,7 +33,7 @@ async function main() {
         schema = fs.readFileSync(`./prisma/schema.prisma`).toString();
 
         if (!provider)
-            throw new Error('No provider specified');
+            throw new Error('No provider specified, please specify one in the variables/env');
     }
 
     const provider = process.env.PROVIDER;
@@ -59,6 +62,8 @@ async function getFileFromExternalSource(provided) {
             console.log(e);
         }
     }
+
+    throw new Error(`Could not load schema from ${provided}`);
 }
 
 function getPossibleUrisFromExternalSource(provided) {
@@ -113,7 +118,7 @@ function getPossibleUrisFromGithubSource(provided) {
         possiblePaths = [provided.split('/').slice(4).join('/')];
 
     } else
-        throw new Error(`Don't know how to parse ${provided}`);
+        throw new Error(`Don't know how to parse github source ${provided}`);
 
     console.log('Parsed as', { owner, repo, possibleBranches, possiblePaths });
 
