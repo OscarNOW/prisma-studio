@@ -2,7 +2,10 @@
   "name": "prisma-studio",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "node build.js",
+    "run": "npx prisma db pull && npx prisma studio"
+  },
   "author": "",
   "description": "",
   "dependencies": {
