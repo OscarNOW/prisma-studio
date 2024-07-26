@@ -46,19 +46,19 @@ async function getFileFromExternalSource(provided) {
 
 function getPossibleUrisFromExternalSource(provided) {
     let origin = 'https://github.com';
-    if (provided.startsWith('http'))
+    if (provided.startsWith('http')) {
         origin = new URL(provided).origin;
+        provided = provided.slice(origin.length + 1);
+    }
 
     console.log(`Parsed origin as ${origin}`);
 
-    if (origin === 'https://github.com') {
-        provided = provided.slice(origin.length + 1);
+    if (origin === 'https://github.com')
         return getPossibleUrisFromGithubSource(provided);
-    }
 
     console.log('Parsed source as full uri to the file');
 
-    return [provided];
+    return [`${origin}/${provided}`];
 }
 
 function getPossibleUrisFromGithubSource(provided) {
