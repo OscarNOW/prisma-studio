@@ -1,7 +1,8 @@
-# Prisma studio
-This is a Railway template used to quickly host prisma studio given only a database url (and provider and/or schema).
+# Prisma studio template
+This is a Railway template used to quickly host Prisma Studio with only a database url. It is made to be quick to set up and have minimal configuration required.
 
-It is made to be quick to set up and to have minimal configuration required. **BE CAREFUL**, because anyone that has access to prisma studio can make changes to the database.
+Prisma Studio is a database viewer using Prisma where you can easily view data and relations in a database.
+![Prisma Studio screenshot](https://github.com/user-attachments/assets/da2ef03a-1c0e-43da-95ac-189ef6614ea8)
 
 ## Options
 ### Database url
