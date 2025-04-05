@@ -6,6 +6,6 @@
   "description": "",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "prisma": "^5.17.0"
+    "prisma": "latest"
   }
 }
