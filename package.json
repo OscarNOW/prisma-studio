@@ -4,8 +4,16 @@
   "main": "index.js",
   "author": "",
   "description": "",
+  "scripts": {
+    "start": "node build.js && concurrently \"npx prisma studio --port 3001\" \"node secure.js\""
+  },  
   "dependencies": {
+    "basic-auth": "^2.0.1",
     "dotenv": "^16.4.5",
+    "http-proxy": "^1.18.1",
     "prisma": "latest"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
   }
 }
