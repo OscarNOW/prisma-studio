@@ -5,7 +5,7 @@
   "author": "",
   "description": "",
   "scripts": {
-    "start": "node build.js && concurrently \"npx prisma studio --port 3001\" \"node secure.js\""
+    "start": "node build.js && concurrently \"npx prisma studio --port 3000\" \"node secure.js\""
   },  
   "dependencies": {
     "basic-auth": "^2.0.1",

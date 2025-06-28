@@ -23,7 +23,7 @@ http.createServer((req, res) => {
     res.end('Access denied')
     return
   }
-  proxy.web(req, res, { target: 'http://localhost:3001' })
-}).listen(3000, () => {
-  console.log('🔐 Secure Prisma Studio available at http://localhost:3000')
+  proxy.web(req, res, { target: 'http://localhost:3000' })
+}).listen(3001, () => {
+  console.log('🔐 Secure Prisma Studio available at http://localhost:3001')
 })
