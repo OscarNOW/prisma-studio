@@ -5,8 +5,7 @@
   "author": "Oscar",
   "description": "Quickly host the database viewer Prisma Studio with only a database url",
   "scripts": {
-    "pre-deploy": "node build.js && npx prisma db pull",
-    "start": "concurrently \"npx prisma studio --port 3000 --browser none\" \"node proxy\""
+    "start": "node build.js && npx prisma db pull && concurrently \"npx prisma studio --port 3000 --browser none\" \"node proxy\""
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
