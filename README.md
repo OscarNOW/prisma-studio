@@ -1,10 +1,14 @@
-# Prisma studio template
+# Deploy and Host Prisma Studio on Railway
+
 This is a Railway template used to quickly host Prisma Studio with only a database url. It is made to be quick to set up and have minimal configuration required.
 
 Prisma Studio is a database viewer using Prisma where you can easily view data and relations in a database.
 ![Prisma Studio screenshot](https://github.com/user-attachments/assets/da2ef03a-1c0e-43da-95ac-189ef6614ea8)
 
-## Options
+## About Hosting Prisma Studio
+### Auth
+Prisma Studio sits behind a basic auth proxy. You can find the `SECURE_USER` and `SECURE_PASS` (username and password) inside the Railway service variables.
+
 ### Database url
 Required, This is the database url prisma uses to connect to the database.
 
@@ -40,3 +44,23 @@ Examples of valid schema sources would be:
 * trpc/examples-next-prisma-starter
 * trpc/examples-next-prisma-starter/main
 * https://github.com/trpc/examples-next-prisma-starter
+
+## Common Use Cases
+
+- Debug problems your database
+- Quickly view your data
+- Bulk edit and delete data
+
+## Dependencies for Prisma Studio Hosting
+
+All dependencies are included in this template.
+
+### Deployment Dependencies
+
+[https://www.prisma.io/studio](https://www.prisma.io/studio)
+
+## Why Deploy Prisma Studio on Railway?
+
+Railway is a singular platform to deploy your infrastructure stack. Railway will host your infrastructure so you don't have to deal with configuration, while allowing you to vertically and horizontally scale it.
+
+By deploying Prisma Studio on Railway, you are one step closer to supporting a complete full-stack application with minimal burden. Host your servers, databases, AI agents, and more on Railway.
