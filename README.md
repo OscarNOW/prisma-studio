@@ -1,5 +1,7 @@
 # Deploy and Host Prisma Studio on Railway
 
+[Deploy on Railway](https://railway.com/deploy/NpN5Jl)
+
 This is a Railway template used to quickly host Prisma Studio with only a database url. It is made to be quick to set up and have minimal configuration required.
 
 Prisma Studio is a database viewer using Prisma where you can easily view data and relations in a database.
