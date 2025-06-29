@@ -2,8 +2,8 @@
   "name": "prisma-studio",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "",
-  "description": "",
+  "author": "Oscar",
+  "description": "Quickly host the database viewer Prisma Studio with only a database url",
   "scripts": {
     "start": "node build.js &&  npx prisma db pull && concurrently \"npx prisma studio --port 3000\" \"node secure.js\""
   },
